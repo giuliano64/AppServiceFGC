@@ -29,7 +29,7 @@
     {
         foreach (var image in Model)
         {
-            <li class="list-group-item">@Html.ActionLink("View", "Detail", new { ImageFileName = image.ImageFileName })</li>
+            <li class="list-group-item">@Html.ActionLink(@image.ImageFileName , "Detail", new { ImageFileName = image.ImageFileName })</li>
         }
     }
 

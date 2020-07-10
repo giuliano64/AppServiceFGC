@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using webApp.Models;
 
@@ -22,16 +24,18 @@ namespace webApp.Controllers
         public async Task<IActionResult> Index()
         {
             List<ImageModel> images = new List<ImageModel>();
+
+
             //get a list of images in the container and add to the list
-            var containerClient = new BlobContainerClient(
-               config["BlobCon "], "pictures");
+            var containerClient = new BlobContainerClient(config.GetSection("BlobCon").Value, "pictures");
 
             var blobs = containerClient.GetBlobsAsync(BlobTraits.Metadata);
             await foreach (var item in blobs)
             {
                 images.Add(new ImageModel
                 {
-                    Name = item.Metadata["customName"],
+                    Name = item.Name,
+                    //Name = item.Metadata["Name"],
                     ImageFileName = item.Name
                 });
             }
@@ -44,25 +48,36 @@ namespace webApp.Controllers
         //[Authorize]
         public async Task<IActionResult> Index(ImageUploadModel model)
         {
-            //upload image after authorizing user
-            var containerClient = new BlobContainerClient(
-                config["BlobCon "], "pictures");
-
-            var blobClient = containerClient.GetBlobClient(
-                model.ImageFile.FileName); // USE a temporary file name
-
-            var result = await blobClient.UploadAsync(model.ImageFile.OpenReadStream(),
-                new BlobHttpHeaders
+            try
+            {
+                //upload image after authorizing user
+                var containerClient = new BlobContainerClient(config.GetSection("BlobCon").Value, "pictures");
+                if (model.ImageFile != null)
                 {
-                    ContentType = model.ImageFile.ContentType,
-                    CacheControl = "public"
-                },
-                new Dictionary<string, string> { { "customName",
-                    model.Name} }
-                );
+                    var blobClient = containerClient.GetBlobClient(
+                        model.ImageFile.FileName); // USE a temporary file name
 
-            return RedirectToAction("Index");
+                    var result = await blobClient.UploadAsync(model.ImageFile.OpenReadStream(),
+                        new BlobHttpHeaders
+                        {
+                            ContentType = model.ImageFile.ContentType,
+                            CacheControl = "public"
+                        },
+                        new Dictionary<string, string> { { "pictures",
+                    model.Name} }
+                        );
+
+                }
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("Index");
+            }
+
         }
+
+
 
         [HttpGet]
         //[Authorize] // when using auth to make sure they should get the link
@@ -73,7 +88,7 @@ namespace webApp.Controllers
 
             //get image from storage and set URL and metadata name on model
             var containerClient = new BlobContainerClient(
-               config["BlobCon "], "pictures");
+               config.GetSection("BlobCon").Value, "pictures");
 
             var blob = containerClient.GetBlobClient(imageFileName);
 
@@ -87,13 +102,19 @@ namespace webApp.Controllers
             builder.SetPermissions(BlobSasPermissions.Read);
 
             UriBuilder uBuilder = new UriBuilder(blob.Uri);
+            var blobKey = config.GetSection("BlobKey").Value;
+            byte[] bytes = System.Text.Encoding.ASCII.GetBytes(blobKey);
+            var encodedKey = Convert.ToBase64String(bytes);
+
             uBuilder.Query = builder.ToSasQueryParameters(
                 new Azure.Storage.StorageSharedKeyCredential(
                     containerClient.AccountName,
-                    config["BlobKey"]
+                    encodedKey
                 )).ToString();
 
-            model.Url = uBuilder.Uri.ToString();
+
+            //model.Url = uBuilder.Uri.ToString();
+            model.Url = "https://" + containerClient.AccountName + ".blob.core.windows.net/"+ blob.BlobContainerName + "/" + imageFileName + "?" + blobKey;
             model.ImageFileName = imageFileName;
 
 
