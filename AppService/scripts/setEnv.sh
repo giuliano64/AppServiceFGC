@@ -39,7 +39,9 @@ vnetDeployment=$(az group deployment create --resource-group $(echo $resourceGro
 az group deployment create \
     -g $(echo $resourceGroup | jq .name -r)  \
     --template-file "Templates/azuredeploy.json" \
-    --parameters principalId=$(echo $sp | jq .appId -r) 
+ 
+ 
+ --variables principalId=$(echo $sp | jq .appId -r) 
 #    --parameters existingServicePrincipalClientSecret=$(echo $sp | jq .password -r) 
 
 cd

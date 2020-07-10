@@ -46,7 +46,10 @@
     },
     "principalId": {
       "type": "string",
-      "metadata": {"description": "service principal ID"}
+      "defaultValue": "service principal Id",
+      "metadata": {
+        "description": "service principal ID"
+      }
     }
   },
   "variables": {
