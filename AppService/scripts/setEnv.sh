@@ -41,7 +41,10 @@ az group deployment create \
     --template-file "Templates/azuredeploy.json" \
  
  
- --variables principalId=$(echo $sp | jq .appId -r) 
-#    --parameters existingServicePrincipalClientSecret=$(echo $sp | jq .password -r) 
+ 
+ az group deployment create \
+    -g $(echo $resourceGroup | jq .name -r)  \
+    --template-file "Templates/accessPolicy.json" \
+    --parameters principalId=$(echo $sp | jq .appId -r) 
 
 cd

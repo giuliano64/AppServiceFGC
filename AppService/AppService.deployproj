@@ -30,6 +30,7 @@
     <Content Include="README.md" />
     <Content Include="Templates\appServiceVnet.json" />
     <None Include="scripts\setEnv.sh" />
+    <None Include="Templates\accessPolicy.json" />
     <None Include="Templates\dataLake.json" />
     <None Include="Templates\kv.json" />
   </ItemGroup>

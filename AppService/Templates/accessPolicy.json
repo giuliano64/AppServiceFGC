@@ -1,0 +1,26 @@
+﻿{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "principalId": {
+      "type": "string",
+      "defaultValue": "service principal Id",
+      "metadata": {
+        "description": "service principal ID"
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "name": "8446a13c-6886-46e2-a17f-9df73adb334e",
+      "apiVersion": "2017-10-01-preview",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "roleDefinitionId": "[concat(subscription().Id, '/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c')]",
+        "principalId": "[parameters('principalId')]",
+        "scope": "[resourceGroup().Id]"
+      }
+    }
+  ]
+}
