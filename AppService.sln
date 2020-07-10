@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "AppService", "..\AppService\AppService\AppService.deployproj", "{7392BE9A-23EF-49CB-96E2-1CA936F4A2B4}"
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "AppService", "AppService\AppService.deployproj", "{7392BE9A-23EF-49CB-96E2-1CA936F4A2B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

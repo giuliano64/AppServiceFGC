@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>4af1687e-1c5a-40f4-ae7e-4f31b9ac2669</ProjectGuid>
+    <ProjectGuid>7392be9a-23ef-49cb-96e2-1ca936f4a2b4</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup>
     <PrepareForBuildDependsOn>
@@ -23,16 +23,16 @@
   <Import Condition=" Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets') " Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Deployment\1.1\DeploymentProject.targets" />
   <!-- vertag<:>end -->
   <ItemGroup>
-    <Content Include="azuredeploy.parameters.json" />
-    <Content Include="azuredeploy.json" />
+    <Content Include="parameters\azuredeploy.parameters.json" />
+    <Content Include="Templates\azuredeploy.json" />
     <None Include="Deployment.targets">
       <Visible>False</Visible>
     </None>
-    <Content Include="Deploy-AzureResourceGroup.ps1" />
     <Content Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Keyvault\" />
+    <Content Include="Templates\appServiceVnet.json" />
+    <None Include="scripts\setEnv.sh" />
+    <None Include="Templates\dataLake.json" />
+    <None Include="Templates\kv.json" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>
