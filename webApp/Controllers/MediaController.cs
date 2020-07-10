@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using webApp.Models;
 
@@ -112,12 +110,9 @@ namespace webApp.Controllers
                     encodedKey
                 )).ToString();
 
-
             //model.Url = uBuilder.Uri.ToString();
             model.Url = "https://" + containerClient.AccountName + ".blob.core.windows.net/"+ blob.BlobContainerName + "/" + imageFileName + "?" + blobKey;
             model.ImageFileName = imageFileName;
-
-
 
             return View(model);
         }
