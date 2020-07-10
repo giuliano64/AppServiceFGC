@@ -34,6 +34,7 @@
     <None Include="Templates\accessPolicy.json" />
     <None Include="Templates\dataLake.json" />
     <None Include="Templates\kv.json" />
+    <None Include="Templates\logAnalytics.json" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>

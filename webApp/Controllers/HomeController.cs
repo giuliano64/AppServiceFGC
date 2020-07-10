@@ -23,7 +23,13 @@ namespace webApp.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Media()
+        {
+            return View();
+        }
+
+
+        public IActionResult OurStory()
         {
             return View();
         }

@@ -16,6 +16,15 @@ sp=$(az ad sp create-for-rbac --name ${spName})
 
 cd AppService
 
+
+# Deploy Log Analytics Workspace
+templateFile="./Templates/logAnalytics.json"
+
+timestamp=$(date -u +%FT%TZ | tr -dc '[:alnum:]\n\r')
+name="$(echo $resourceGroup | jq .name -r)-${timestamp}"
+deployment=$(az group deployment create --resource-group $(echo $resourceGroup | jq .name -r) --name ${name} --template-file ${templateFile} --verbose)
+
+
 #create keyvault
 keyVaultName=${appsrv}-kv 
 #create keyvault
@@ -35,7 +44,7 @@ vnetDeployment=$(az group deployment create --resource-group $(echo $resourceGro
 
 
 # Deploy App Service with WebApp
-
+logAnalyticsId=$(echo $deployment | jq .properties.outputs.workspaceResourceId.value -r)
 az group deployment create \
     -g $(echo $resourceGroup | jq .name -r)  \
     --template-file "Templates/azuredeploy.json" \

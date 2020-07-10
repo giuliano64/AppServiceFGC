@@ -114,3 +114,4 @@ C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcore
 C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.dll
 C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.pdb
 C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.genruntimeconfig.cache
+C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.csprojAssemblyReference.cache
