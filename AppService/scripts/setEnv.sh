@@ -17,8 +17,7 @@ sp=$(az ad sp create-for-rbac --name ${spName})
 cd AppService
 
 #create keyvault
-keyvaultName=${appsrv}-kv 
-sp=$(az ad sp create-for-rbac --name ${spName}) 
+keyVaultName=${appsrv}-kv 
 #create keyvault
 az keyvault create \
   --name $(echo $keyVaultName) \
@@ -40,8 +39,7 @@ vnetDeployment=$(az group deployment create --resource-group $(echo $resourceGro
 az group deployment create \
     -g $(echo $resourceGroup | jq .name -r)  \
     --template-file "Templates/azuredeploy.json" \
-    --parameters "Parameters/azuredeploy.parameters.json" \
-    --parameters existingServicePrincipalClientId=$(echo $sp | jq .appId -r) \
-    --parameters existingServicePrincipalClientSecret=$(echo $sp | jq .password -r) 
+    --parameters principalId=$(echo $sp | jq .appId -r) 
+#    --parameters existingServicePrincipalClientSecret=$(echo $sp | jq .password -r) 
 
 cd
