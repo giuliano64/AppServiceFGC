@@ -7,30 +7,32 @@
     <link href="~/css/style-brands.css" rel="stylesheet">
 }
 
-<h2>Images</h2>
-<form enctype="multipart/form-data" method="post">
-    @Html.AntiForgeryToken()
-    <fieldset>
-        <label for="">Name</label>
-        <input type="text" id="imgName" name="Name" />
+    <img src="~/images/cloudBanner.jpeg" />
 
-        <label for="imgFile">File</label>
-        <input type="file" name="ImageFile" id="imgFile" />
+    <h2>Images</h2>
+    <form enctype="multipart/form-data" method="post">
+        @Html.AntiForgeryToken()
+        <fieldset>
+            <label for="">Name</label>
+            <input type="text" id="imgName" name="Name" />
 
-        <input type="submit" value="Upload" />
-    </fieldset>
+            <label for="imgFile">File</label>
+            <input type="file" name="ImageFile" id="imgFile" />
 
-</form>
+            <input type="submit" value="Upload" />
+        </fieldset>
 
-<!--List of images-->
-<h4>Existing images</h4>
-<ul class="list-group">
-    @if (Model != null)
-    {
-        foreach (var image in Model)
+    </form>
+
+    <!--List of images-->
+    <h4>Existing images</h4>
+    <ul class="list-group">
+        @if (Model != null)
         {
-            <li class="list-group-item">@Html.ActionLink(@image.ImageFileName , "Detail", new { ImageFileName = image.ImageFileName })</li>
+            foreach (var image in Model)
+            {
+                <li class="list-group-item">@Html.ActionLink(@image.ImageFileName, "Detail", new { ImageFileName = image.ImageFileName })</li>
+            }
         }
-    }
 
-</ul>
+    </ul>

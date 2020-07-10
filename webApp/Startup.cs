@@ -1,10 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,8 +11,15 @@ namespace webApp
     {
         public Startup(IConfiguration configuration)
         {
+                      
             Configuration = configuration;
+            string keyVaultName = Environment.GetEnvironmentVariable("KEY_VAULT_NAME");
+        /*    var kvUri = "https://" + configuration.GetSection("kvName").Value + ".vault.azure.net";
+            var client = new SecretClient(new Uri(kvUri), new DefaultAzureCredential());
+            KeyVaultSecret secret = client.GetSecret("BlobCon");
+            configuration.GetSection("BlobCon").Value = */
         }
+
 
         public IConfiguration Configuration { get; }
 

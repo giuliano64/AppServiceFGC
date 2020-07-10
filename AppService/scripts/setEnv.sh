@@ -35,7 +35,7 @@ az keyvault create \
   --enabled-for-template-deployment true
 
 az keyvault set-policy -n  $(echo $keyVaultName) --spn $(echo $sp | jq .appId -r) --secret-permissions get list set --key-permissions create decrypt delete encrypt get list unwrapKey wrapKey
-az keyvault secret set --vault-name $(echo $keyVaultName) --name "appSpPWD" --value  $(echo $sp | jq .password -r) 
+az keyvault secret set --vault-name $(echo $keyVaultName) --name "appSrvSpPWD" --value  $(echo $sp | jq .password -r) 
 
 #deploy Vnet with 2 subnets
 vnetTemplate="./Templates/appServiceVnet.json"
