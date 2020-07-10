@@ -43,7 +43,7 @@ az group deployment create \
 
  az group deployment create \
     -g $(echo $resourceGroup | jq .name -r)  \
-    --template-file "Templates/DataLakeg2.json" \
+    --template-file "Templates/dataLake.json" \
 
 
 cd
