@@ -88,8 +88,6 @@ C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\bin\Debug\netcore
 C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.AssemblyInfoInputs.cache
 C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.AssemblyInfo.cs
-C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.csproj.CoreCompileInputs.cache
-C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.RazorAssemblyInfo.cache
 C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.RazorAssemblyInfo.cs
 C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.TagHelpers.input.cache
@@ -115,3 +113,9 @@ C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcore
 C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.pdb
 C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.genruntimeconfig.cache
 C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\obj\Debug\netcoreapp3.1\webApp.csprojAssemblyReference.cache
+C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\bin\Debug\netcoreapp3.1\Microsoft.Azure.Services.AppAuthentication.dll
+C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\bin\Debug\netcoreapp3.1\Microsoft.Azure.KeyVault.dll
+C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\bin\Debug\netcoreapp3.1\Microsoft.Azure.KeyVault.WebKey.dll
+C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\bin\Debug\netcoreapp3.1\Microsoft.Rest.ClientRuntime.dll
+C:\Users\Giuliano\source\repos\azAssesmentAppServiceFGC\webApp\bin\Debug\netcoreapp3.1\Microsoft.Rest.ClientRuntime.Azure.dll
