@@ -74,11 +74,11 @@
       }
     },
 
-    "vnetName": "aztechVNet",
-    "vnetPrefix": "10.0.0.0/16",
-    "subnetName": "WebAppSubnet",
+    "vnetName": "appVnet",
+    "vnetPrefix": "11.0.0.0/16",
+    "subnetName": "appsubnet1",
     "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('vnetName'), variables('subnetName'))]",
-    "subnetPrefix": "10.0.0.0/24"
+    "subnetPrefix": "11.0.0.0/24"
 
 
 

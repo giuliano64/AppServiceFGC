@@ -1,8 +1,11 @@
-﻿
+﻿cd
+rm -rf azAssesmentAppServiceFGC
+git clone https://github.com/giuliano64/azAssesmentAppServiceFGC.git
+cd azAssesmentAppServiceFGC
 # Create Resource Group
 resourceGroupName='appsrv-rg'
-resourceGroupLocation='soutcentralus'
-resourceGroup=$(az group create --name ${resourceGroupName} --location "${resourceGroupLocation}" --verbose)
+resourceGroupLocation='southcentralus'
+resourceGroup=$(az group create --name ${resourceGroupName} --location ${resourceGroupLocation} --verbose)
 
 ### Deploy App Service
 appsrv='appsrv'
@@ -11,19 +14,20 @@ appsrv='appsrv'
 spName=sp-appService
 sp=$(az ad sp create-for-rbac --name ${spName})
 
+cd AppService
 
 #create keyvault
-keyVaultName=${appsrv}-kv 
+keyvaultName=${appsrv}-kv 
 sp=$(az ad sp create-for-rbac --name ${spName}) 
 #create keyvault
 az keyvault create \
-  --name $(echo $keyvaultName) \
+  --name $(echo $keyVaultName) \
   --resource-group  $(echo $resourceGroup | jq .name -r) \
   --location "southcentralus" \
   --enabled-for-template-deployment true
 
-az keyvault set-policy -n  $(echo $keyvaultName) --spn $(echo $sp | jq .appId -r) --secret-permissions get list set --key-permissions create decrypt delete encrypt get list unwrapKey wrapKey
-az keyvault secret set --vault-name $(echo $keyvaultName) --name "appSpPWD" --value  $(echo $sp | jq .password -r) 
+az keyvault set-policy -n  $(echo $keyVaultName) --spn $(echo $sp | jq .appId -r) --secret-permissions get list set --key-permissions create decrypt delete encrypt get list unwrapKey wrapKey
+az keyvault secret set --vault-name $(echo $keyVaultName) --name "appSpPWD" --value  $(echo $sp | jq .password -r) 
 
 #deploy Vnet with 2 subnets
 vnetTemplate="./Templates/appServiceVnet.json"
@@ -40,3 +44,4 @@ az group deployment create \
     --parameters existingServicePrincipalClientId=$(echo $sp | jq .appId -r) \
     --parameters existingServicePrincipalClientSecret=$(echo $sp | jq .password -r) 
 
+cd
