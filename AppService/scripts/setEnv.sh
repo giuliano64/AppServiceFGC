@@ -40,11 +40,10 @@ az group deployment create \
     -g $(echo $resourceGroup | jq .name -r)  \
     --template-file "Templates/azuredeploy.json" \
  
- 
- 
+
  az group deployment create \
     -g $(echo $resourceGroup | jq .name -r)  \
-    --template-file "Templates/accessPolicy.json" \
-    --parameters principalId=$(echo $sp | jq .appId -r) 
+    --template-file "Templates/DataLakeg2.json" \
+
 
 cd
