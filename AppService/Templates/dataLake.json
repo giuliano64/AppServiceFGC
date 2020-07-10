@@ -27,7 +27,7 @@
   },
   "variables": {
     "storageAccountApiVersion": "[utils.apiVersion('Microsoft.Storage', 'storageAccounts')]",
-    "storageAccountName": "[utils.uniqueName(parameters('resourcePrefix'), 'store')]",
+    "storageAccountName": "appsrvdlfgc32",
     "storageAccountResourceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountName'))]"
   },
   "functions": [
