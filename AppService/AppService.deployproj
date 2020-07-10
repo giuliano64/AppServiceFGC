@@ -33,11 +33,7 @@
     <None Include="scripts\setEnv.sh" />
     <None Include="Templates\accessPolicy.json" />
     <None Include="Templates\dataLake.json" />
-    <None Include="Templates\DataLakeg2.json" />
     <None Include="Templates\kv.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="parameters\" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
 </Project>
