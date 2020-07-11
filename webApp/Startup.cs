@@ -17,8 +17,9 @@ namespace webApp
     {
         public Startup(IConfiguration configuration)
         {
-                      
+                     
            Configuration = configuration;
+
         }
 
 
@@ -58,29 +59,8 @@ namespace webApp
 
             app.UseAuthorization();
 
-            SecretClientOptions options = new SecretClientOptions()
-            {
-                Retry =
-                    {
-                        Delay= TimeSpan.FromSeconds(2),
-                        MaxDelay = TimeSpan.FromSeconds(16),
-                        MaxRetries = 5,
-                        Mode = RetryMode.Exponential
-                    }
-            };
-            var client = new SecretClient(new Uri("https://appsrv-kv.vault.azure.net/"), new DefaultAzureCredential(), options);
+        
 
-            KeyVaultSecret blobConKv = client.GetSecret("BlobCon");
-            KeyVaultSecret blobKeyKv = client.GetSecret("BlobKey");
-
-            string blobConKvValue = blobConKv.Value;
-            string blobKeyKvValue = blobKeyKv.Value;
-            app.Run(async context =>
-            {
-                await context.Response.WriteAsync(blobConKvValue);
-                await context.Response.WriteAsync(blobKeyKvValue);
-
-            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

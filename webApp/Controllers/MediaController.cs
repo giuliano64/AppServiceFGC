@@ -1,4 +1,7 @@
-﻿using Azure.Storage.Blobs;
+﻿using Azure.Core;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Azure.Storage.Sas;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +20,33 @@ namespace webApp.Controllers
         public MediaController(IConfiguration appConfig)
         {
             config = appConfig;
+            SecretClientOptions options = new SecretClientOptions()
+            {
+                Retry =
+                    {
+                        Delay= TimeSpan.FromSeconds(2),
+                        MaxDelay = TimeSpan.FromSeconds(16),
+                        MaxRetries = 5,
+                        Mode = RetryMode.Exponential
+                    }
+            };
+            var credential = new ClientSecretCredential(config.GetSection("tenantId").Value, config.GetSection("clientId").Value, config.GetSection("clientSecret").Value);
+            var client = new SecretClient(new Uri("https://appsrv-kv.vault.azure.net/"), credential, options);
+
+            KeyVaultSecret blobConKv = client.GetSecret("BlobCon");
+            KeyVaultSecret blobKeyKv = client.GetSecret("BlobKey");
+
+
+            string blobConKvValue = blobConKv.Value;
+            string blobKeyKvValue = blobKeyKv.Value;
+            config.GetSection("BlobCon").Value = blobConKvValue;
+            config.GetSection("Blobkey").Value = blobKeyKvValue;
         }
 
         public async Task<IActionResult> Index()
         {
             List<ImageModel> images = new List<ImageModel>();
+
 
 
             //get a list of images in the container and add to the list
@@ -49,6 +74,7 @@ namespace webApp.Controllers
             try
             {
                 //upload image after authorizing user
+                
                 var containerClient = new BlobContainerClient(config.GetSection("BlobCon").Value, "pictures");
                 if (model.ImageFile != null)
                 {
