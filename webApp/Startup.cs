@@ -17,10 +17,17 @@ namespace webApp
         public Startup(IConfiguration configuration)
         {
                       
-            Configuration = configuration;
-            string keyVaultName = configuration.GetSection("kvName").Value;
-            
-            SecretClientOptions options = new SecretClientOptions()
+           Configuration = configuration;
+           string keyVaultName = configuration.GetSection("kvName").Value;
+         //  KvHelper kvHelper = new KvHelper();
+         //  var blobcon = await kvHelper .getsec("BlobCon");
+
+           AzureServiceTokenProvider tokenProvider = new AzureServiceTokenProvider();  
+            KeyVaultClient keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(tokenProvider.KeyVaultTokenCallback));  
+            var credentail = keyVaultClient.GetSecretAsync("https://appsrv-kv.vault.azure.net/secrets/BlobCon").Result;  
+            var secret = credentail.Value.ToString();   
+    
+        /*    SecretClientOptions options = new SecretClientOptions()
                 {
                     Retry =
                     {
@@ -42,6 +49,7 @@ namespace webApp
             secret = client.GetSecret("BlobKey");
             secretValue = secret.Value;
             configuration.GetSection("BlobKey").Value = secretValue;
+            */
            /* AzureServiceTokenProvider azureServiceTokenProvider = new AzureServiceTokenProvider();
             KeyVaultClient keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
             var secret = await keyVaultClient.GetSecretAsync("https://<YourKeyVaultName>.vault.azure.net/secrets/AppSecret").ConfigureAwait(false);
@@ -51,6 +59,7 @@ namespace webApp
 
 
 
+    
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
