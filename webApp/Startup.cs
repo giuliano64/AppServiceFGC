@@ -4,6 +4,7 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
@@ -18,43 +19,6 @@ namespace webApp
         {
                       
            Configuration = configuration;
-           string keyVaultName = configuration.GetSection("kvName").Value;
-         //  KvHelper kvHelper = new KvHelper();
-         //  var blobcon = await kvHelper .getsec("BlobCon");
-
-           AzureServiceTokenProvider tokenProvider = new AzureServiceTokenProvider();  
-            KeyVaultClient keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(tokenProvider.KeyVaultTokenCallback));  
-            var credentail = keyVaultClient.GetSecretAsync("https://appsrv-kv.vault.azure.net/secrets/BlobCon").Result;  
-            var secret = credentail.Value.ToString();   
-    
-        /*    SecretClientOptions options = new SecretClientOptions()
-                {
-                    Retry =
-                    {
-                        Delay= TimeSpan.FromSeconds(2),
-                        MaxDelay = TimeSpan.FromSeconds(16),
-                        MaxRetries = 5,
-                        Mode = RetryMode.Exponential
-                    }
-                };
-            
-            var client = new SecretClient(new Uri("https://"+keyVaultName+".vault.azure.net/"), new DefaultAzureCredential(),options);
-
-            KeyVaultSecret secret = client.GetSecret("BlobCon");
-            
-            string secretValue = secret.Value;
-
-            configuration.GetSection("BlobCon").Value = secretValue;
-            
-            secret = client.GetSecret("BlobKey");
-            secretValue = secret.Value;
-            configuration.GetSection("BlobKey").Value = secretValue;
-            */
-           /* AzureServiceTokenProvider azureServiceTokenProvider = new AzureServiceTokenProvider();
-            KeyVaultClient keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
-            var secret = await keyVaultClient.GetSecretAsync("https://<YourKeyVaultName>.vault.azure.net/secrets/AppSecret").ConfigureAwait(false);
-            Message = secret.Value;
-            */
         }
 
 
@@ -82,6 +46,11 @@ namespace webApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+          
+
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -89,6 +58,29 @@ namespace webApp
 
             app.UseAuthorization();
 
+            SecretClientOptions options = new SecretClientOptions()
+                {
+                    Retry =
+                    {
+                        Delay= TimeSpan.FromSeconds(2),
+                        MaxDelay = TimeSpan.FromSeconds(16),
+                        MaxRetries = 5,
+                        Mode = RetryMode.Exponential
+                    }
+                };
+            var client = new SecretClient(new Uri("https://appsrv-kv.vault.azure.net/"), new DefaultAzureCredential(),options);
+
+            KeyVaultSecret blobConKv = client.GetSecret("BlobCon");
+            KeyVaultSecret blobKeyKv = client.GetSecret("BlobKey");
+
+            string blobConKvValue = blobConKv.Value;
+            string blobKeyKvValue = blobKeyKv.Value;
+        app.Run(async context =>
+        {
+             await context.Response.WriteAsync(blobConKvValue);
+             await context.Response.WriteAsync(blobKeyKvValue);
+             
+        });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
