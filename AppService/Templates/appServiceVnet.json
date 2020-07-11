@@ -84,7 +84,7 @@
             ],
             "delegations": [
               {
-                "name": "webapp",
+                "name": "fgcWebApp",
                 "properties": {
                   "serviceName": "Microsoft.Web/serverFarms",
                   "actions": [
