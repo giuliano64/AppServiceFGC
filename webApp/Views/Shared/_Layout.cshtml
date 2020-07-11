@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>MediaWebApp</title>
+    <title>Pictures Storage Manager</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,20 +10,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link href="~/css/style-home.css" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="~/images/G.png" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/images/cloudFolderLogo.png" />
     @RenderSection("Styles", false)
 </head>
 
 <body>
-    
+
     <div id="wrapper">
 
         <header>
             <div class="container">
-                <div class="logo col-md-5 col-sm-5 col-xs-8">
-                    <a href="@Url.Action("Index")"></a><span class="text">Media Storage Manager</span>
+                <div class="nav-item">
+                    <a href="@Url.Action("Index")"><img src="~/images/Breezeicons-places-64-folder-cloud.svg" alt="logo" /></a><span class="text">Media Manager</span>
+           
+    @*<li class="nav-item">
+                            @Html.ActionLink("How to Upload Images", "Media", "Home", null, new { @class = "nav-link" })
+                            <a class="nav-link disabled" href="media.html">Media</a>
+                        </li>
+                        <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                        <a href="@Url.Action("Index")"></a><span class="text">="@Url.Action("Index", "Home")">Home</span>
+                            <a href="@Url.Action("Index")"></a><span class="text">@Html.ActionLink("How to Upload Images", "Media", "Home", null, new { @class = "nav-link" })</span>*@
+                    </li>
+
                 </div>
                 <div class="mobile-togle col-md-12 col-sm-12 col-xs-12">
+                   
                     <nav class="navbar navbar-default" role="navigation">
                         <div class="navbar-header">
                             <button type="button" id="hamburger" class="navbar-toggle x collapsed" data-toggle="collapse" data-target="#navbar-collapse-x">
@@ -35,30 +46,11 @@
                         </div>
 
                         <div class="collapse navbar-collapse" id="navbar-collapse-x">
-                            <ul class="nav navbar-nav navbar-right">
-                                <ul class="navbar-nav mr-auto">
-                                    <li class="nav-item">
-                                        @*@Html.ActionLink("Our story", "OurStory", "Home", null, new { @class = "nav-link" })*@
-                                        @*<a class="nav-link" href="our-story.html">Our story<span class="sr-only">(current)</span></a>*@
-                                    </li>
 
-                                    <li class="nav-item">
-                                        @Html.ActionLink("How to Upload Media", "Media", "Home", null, new { @class = "nav-link" })
-                                        @*<a class="nav-link disabled" href="media.html">Media</a>*@
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link disabled" href="#">Support</a>
-                                    </li>
-                                </ul>
-                            </ul>
-                        </div><!-- .navbar-collapse -->
                     </nav>
                 </div>
 
-                <div class="right_section col-md-5 col-xs-12">
-                    <div class="search">
-                        <button type="submit"><i placeholder="Search">
-                    </div>
+
 
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
@@ -67,16 +59,18 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
+                                    <a href="@Url.Action("Index", "Home")">Home</a>
+                                    @*<a class="nav-link disabled" href="#">Support</a>*@
+                                </li>
+                                <li class="nav-item">
                                     @*@Html.ActionLink("Our story", "OurStory", "Home", null, new { @class = "nav-link" })*@
                                     @*<a class="nav-link" href="our-story.html">Our story<span class="sr-only">(current)</span></a>*@
 
                                 <li class="nav-item">
-                                    @Html.ActionLink("How to Upload Media", "Media", "Home", null, new { @class = "nav-link" })
+                                    @Html.ActionLink("How to Upload Images", "Media", "Home", null, new { @class = "nav-link" })
                                     @*<a class="nav-link disabled" href="media.html">Media</a>*@
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link disabled" href="#">Support</a>
-                                </li>
+              
 
                             </ul>
 
@@ -97,16 +91,17 @@
 
         <footer>
             <div class="container">
-                <div class="main-footer col-md-12 col-xs-12">
-                    <div class="foter-logo col-md-3 col-sm-3 col-xs-2">
+                <div class="main-footer col-md-8 col-xs-8">
+                    <div class="foter-logo col-md-1 col-sm-1 col-xs-1">
                         <a href="@Url.Action("Index")">
-                          
+                            <img class="desktop" src="~/images/Breezeicons-places-64-folder-cloud.svg"><img class="mobileImg">
                         </a>
+
                     </div>
                     <div class="links col-md-5 col-md-5 col-xs-10">
-                        <ul class="quick-links col-md-4 col-xs-6">
-
-                         
+                        <ul class="quick-links col-md-8 col-xs-10">
+                            <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                            <li><a href="@Url.Action("Index","Media")">How to upload Images</a></li>
                         </ul>
                     </div>
                 </div>

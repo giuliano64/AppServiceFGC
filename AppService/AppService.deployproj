@@ -30,10 +30,12 @@
     <Content Include="README.md" />
     <Content Include="Templates\appServiceVnet.json" />
     <None Include="scripts\addPermissions.ps1" />
+    <None Include="scripts\deploLB.ps1" />
     <None Include="scripts\setEnv.sh" />
     <None Include="Templates\accessPolicy.json" />
     <None Include="Templates\dataLake.json" />
     <None Include="Templates\kv.json" />
+    <None Include="Templates\loadBalancer.json" />
     <None Include="Templates\logAnalytics.json" />
   </ItemGroup>
   <Target Name="GetReferenceAssemblyPaths" />
