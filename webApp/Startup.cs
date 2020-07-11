@@ -1,4 +1,7 @@
 using System;
+using Azure.Core;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Azure.KeyVault;
@@ -16,20 +19,38 @@ namespace webApp
                       
             Configuration = configuration;
             string keyVaultName = configuration.GetSection("kvName").Value;
-            /*
-            AzureServiceTokenProvider azureServiceTokenProvider = new AzureServiceTokenProvider();
+            
+            SecretClientOptions options = new SecretClientOptions()
+                {
+                    Retry =
+                    {
+                        Delay= TimeSpan.FromSeconds(2),
+                        MaxDelay = TimeSpan.FromSeconds(16),
+                        MaxRetries = 5,
+                        Mode = RetryMode.Exponential
+                    }
+                };
+            
+            var client = new SecretClient(new Uri("https://"+keyVaultName+".vault.azure.net/"), new DefaultAzureCredential(),options);
+
+            KeyVaultSecret secret = client.GetSecret("BlobCon");
+            
+            string secretValue = secret.Value;
+
+            configuration.GetSection("BlobCon").Value = secretValue;
+            
+            secret = client.GetSecret("BlobKey");
+            secretValue = secret.Value;
+            configuration.GetSection("BlobKey").Value = secretValue;
+           /* AzureServiceTokenProvider azureServiceTokenProvider = new AzureServiceTokenProvider();
             KeyVaultClient keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
             var secret = await keyVaultClient.GetSecretAsync("https://<YourKeyVaultName>.vault.azure.net/secrets/AppSecret").ConfigureAwait(false);
             Message = secret.Value;
             */
         }
 
-/*        private async System.Threading.Tasks.Task<AsyncCallback> getSecretAsync(KeyVaultClient keyVaultClient, string secretName, ref secu)
-        {
-           var sec =  await keyVaultClient.GetSecretAsync("https://<YourKeyVaultName>.vault.azure.net/secrets/AppSecret").ConfigureAwait(false);
-            return sec;
-        }
-*/
+
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
