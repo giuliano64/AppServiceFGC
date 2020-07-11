@@ -170,69 +170,6 @@
         "siteConfig": "[variables('configReference')[parameters('language')]]",
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]"
       },
-      {
-        "type": "Microsoft.Insights/autoscalesettings",
-        "name": "[variables('settingName')]",
-        "dependsOn": [
-          "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]"
-        ],
-        "apiVersion": "2014-04-01",
-        "location": "[resourceGroup().location]",
-        "properties": {
-          "profiles": [
-            {
-              "name": "DefaultAutoscaleProfile",
-              "capacity": {
-                "minimum": "[parameters('minimumCapacity')]",
-                "maximum": "[parameters('maximumCapacity')]",
-                "default": "[parameters('defaultCapacity')]"
-              },
-              "rules": [
-                {
-                  "metricTrigger": {
-                    "metricName": "[parameters('metricName')]",
-                    "metricNamespace": "",
-                    "metricResourceUri": "[variables('targetResourceId')]",
-                    "timeGrain": "PT5M",
-                    "statistic": "Average",
-                    "timeWindow": "PT10M",
-                    "timeAggregation": "Average",
-                    "operator": "GreaterThan",
-                    "threshold": "[parameters('metricThresholdToScaleOut')]"
-                  },
-                  "scaleAction": {
-                    "direction": "Increase",
-                    "type": "PercentChangeCount",
-                    "value": "[parameters('changePercentScaleOut')]",
-                    "cooldown": "PT10M"
-                  }
-                },
-                {
-                  "metricTrigger": {
-                    "metricName": "[parameters('metricName')]",
-                    "metricNamespace": "",
-                    "metricResourceUri": "[variables('targetResourceId')]",
-                    "timeGrain": "PT5M",
-                    "statistic": "Average",
-                    "timeWindow": "PT10M",
-                    "timeAggregation": "Average",
-                    "operator": "LessThan",
-                    "threshold": "[parameters('metricThresholdToScaleIn')]"
-                  },
-                  "scaleAction": {
-                    "direction": "Decrease",
-                    "type": "PercentChangeCount",
-                    "value": "[parameters('changePercentScaleIn')]",
-                    "cooldown": "PT10M"
-                  }
-                }
-              ]
-            }
-          ],
-          "enabled": "[parameters('autoscaleEnabled')]",
-          "targetResourceUri": "[variables('targetResourceId')]"
-        }
-      },
       "resources": [
         {
           "type": "sourcecontrols",
@@ -250,6 +187,70 @@
         }
 
       ]
+    },
+    {
+      "type": "Microsoft.Insights/autoscalesettings",
+      "name": "[variables('settingName')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]"
+      ],
+      "apiVersion": "2014-04-01",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "profiles": [
+          {
+            "name": "DefaultAutoscaleProfile",
+            "capacity": {
+              "minimum": "[parameters('minimumCapacity')]",
+              "maximum": "[parameters('maximumCapacity')]",
+              "default": "[parameters('defaultCapacity')]"
+            },
+            "rules": [
+              {
+                "metricTrigger": {
+                  "metricName": "[parameters('metricName')]",
+                  "metricNamespace": "",
+                  "metricResourceUri": "[variables('targetResourceId')]",
+                  "timeGrain": "PT5M",
+                  "statistic": "Average",
+                  "timeWindow": "PT10M",
+                  "timeAggregation": "Average",
+                  "operator": "GreaterThan",
+                  "threshold": "[parameters('metricThresholdToScaleOut')]"
+                },
+                "scaleAction": {
+                  "direction": "Increase",
+                  "type": "PercentChangeCount",
+                  "value": "[parameters('changePercentScaleOut')]",
+                  "cooldown": "PT10M"
+                }
+              },
+              {
+                "metricTrigger": {
+                  "metricName": "[parameters('metricName')]",
+                  "metricNamespace": "",
+                  "metricResourceUri": "[variables('targetResourceId')]",
+                  "timeGrain": "PT5M",
+                  "statistic": "Average",
+                  "timeWindow": "PT10M",
+                  "timeAggregation": "Average",
+                  "operator": "LessThan",
+                  "threshold": "[parameters('metricThresholdToScaleIn')]"
+                },
+                "scaleAction": {
+                  "direction": "Decrease",
+                  "type": "PercentChangeCount",
+                  "value": "[parameters('changePercentScaleIn')]",
+                  "cooldown": "PT10M"
+                }
+              }
+            ]
+          }
+        ],
+        "enabled": "[parameters('autoscaleEnabled')]",
+        "targetResourceUri": "[variables('targetResourceId')]"
+      }
     }
+    
   ]
 }
