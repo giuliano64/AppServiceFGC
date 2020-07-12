@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "resourceName": {
+      "value": "aksAppCluster"
+    },
+    "location": {
+      "value": "southcentralus"
+    },
+    "dnsPrefix": {
+      "value": "techaksfgc"
+    },
+    "existingServicePrincipalObjectId": {
+      "value": "5aea4891-80d7-4813-a839-bd56fadac55a"
+    },
+    "existingServicePrincipalClientId": {
+      "value": "c5d2adef-1f9c-471b-b5b5-a1bcf06e2a5e"
+    },
+    "existingVirtualNetworkName": {
+      "value": "aks-vnet"
+    },
+    "existingVirtualNetworkResourceGroup": {
+      "value": "techaks-rg"
+    },
+    "existingSubnetName": {
+      "value": "aks-subnet"
+    }
+  }
+}
